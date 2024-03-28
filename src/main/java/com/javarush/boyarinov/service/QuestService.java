@@ -1,34 +1,31 @@
 package com.javarush.boyarinov.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import com.javarush.boyarinov.constant.Constant;
+import com.javarush.boyarinov.config.Container;
+import com.javarush.boyarinov.config.UploadQuests;
+import com.javarush.boyarinov.model.Answers;
 import com.javarush.boyarinov.model.Quest;
-import com.javarush.boyarinov.repository.QuestRepository;
+import com.javarush.boyarinov.repository.AnswersRepository;
 import com.javarush.boyarinov.repository.Repository;
 import lombok.AllArgsConstructor;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
+import java.util.List;
 
 @AllArgsConstructor
 public class QuestService {
 
-    private final Repository<Quest> questRepository = new QuestRepository();
+    private final Repository<Quest> questRepository = Container.questRepository;
 
-    //TODO: вернуть метод в исходное состояние
+    private final AnswersRepository answersRepository = Container.answersRepository;
+
+    private final UploadQuests uploadQuests = Container.uploadQuests;
+
     public Collection<Quest> getAll() {
         Collection<Quest> quests = questRepository.getAll();
         if (quests.isEmpty()) {
-            Quest quest = new Quest();
-            quest.setName("First");
-            create(quest);
+            doUpload();
         }
-        return quests;
+        return questRepository.getAll();
     }
 
     public Quest get(long id) {
@@ -47,4 +44,15 @@ public class QuestService {
         questRepository.delete(quest);
     }
 
+    private void doUpload() {
+        uploadQuests.testYamlMapping();
+        List<Quest> questList = uploadQuests.getQuests();
+        List<Answers> answersList = uploadQuests.getAnswers();
+
+        questList.forEach(this::create);
+        answersList.forEach(answers -> {
+            long questId = answers.getQuestId();
+            answersRepository.create(questId, answers);
+        });
+    }
 }

@@ -1,5 +1,6 @@
 package com.javarush.boyarinov.controller;
 
+import com.javarush.boyarinov.config.Container;
 import com.javarush.boyarinov.constant.Constant;
 import com.javarush.boyarinov.model.Quest;
 import com.javarush.boyarinov.service.QuestService;
@@ -16,11 +17,12 @@ import java.util.Collection;
 @WebServlet("/quests")
 public class QuestsServlet extends HttpServlet {
 
-    private final QuestService questService = new QuestService();
+    private final QuestService questService = Container.questService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Collection<Quest> quests = questService.getAll();
+
         req.setAttribute("quests", quests);
 
         String pathToJsp = "%s/quest-list.jsp".formatted(Constant.PATH_TO_VIEW_PACKAGE);

@@ -3,10 +3,7 @@ package com.javarush.boyarinov.repository;
 import com.javarush.boyarinov.exception.AppException;
 import com.javarush.boyarinov.model.Answers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AnswersRepository {
@@ -16,7 +13,7 @@ public class AnswersRepository {
 
     public void create(long questId, Answers answers) {
         List<Answers> answersList = answerMap.get(questId);
-        if (answersList.isEmpty()) {
+        if (Objects.isNull(answersList)) {
             answersList = new ArrayList<>();
         }
         answersList.add(answers);
@@ -29,7 +26,7 @@ public class AnswersRepository {
                 .filter(a -> a.getQuestionId() == questionId)
                 .findAny();
         if (answerOptional.isEmpty()) {
-            throw new AppException("No answer");
+            throw new AppException("No answer or wrong data");
         }
         return answerOptional.get();
     }

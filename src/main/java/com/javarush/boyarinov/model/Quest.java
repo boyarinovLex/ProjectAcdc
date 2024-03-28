@@ -9,8 +9,8 @@ public class Quest implements Model {
 
     private long id;
 
-    private String name = "Тестовый квест";
+    private String name;
 
-    private List<String> questionsList = List.of("1. Вопрос первый?", "2. Вопрос второй?", "3. Вопрос третий?");
+    private List<String> questionsList;
 
 }

@@ -1,0 +1,27 @@
+---
+- questionId: 0
+  questId: 1
+  lossMessage: "Ты отклонил вызов. Поражение"
+  winningMessage: ""
+  answerMap:
+    Принять вызов: true
+    Отклонить вызов: false
+- questionId: 1
+  questId: 1
+  lossMessage: "Ты не пошел на переговоры. Поражение"
+  winningMessage: ""
+  answerMap:
+    Подняться на мостик: true
+    Отказаться подниматься на мостик: false
+- questionId: 2
+  questId: 1
+  lossMessage: "Твою ложь разоблачили. Поражение"
+  winningMessage: ""
+  answerMap:
+    Рассказать правду о себе: true
+    Солгать о себе: false
+- questionId: 3
+  questId: 1
+  lossMessage: ""
+  winningMessage: "Тебя вернули домой. Победа!"
+  answerMap:

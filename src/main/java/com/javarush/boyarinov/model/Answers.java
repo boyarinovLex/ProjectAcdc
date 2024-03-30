@@ -12,7 +12,10 @@ public class Answers {
 
     private long questId;
 
-    //@JsonDeserialize(converter = UploadClassConverter.class)
+    private String lossMessage;
+
+    private String winningMessage;
+
     private Map<String, Boolean> answerMap = new HashMap<>();
 
 }

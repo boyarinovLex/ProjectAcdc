@@ -27,11 +27,15 @@ public class GameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long questId = Long.parseLong(req.getParameter("questId"));
         int questionId = Integer.parseInt(req.getParameter("questionId"));
+        boolean value = Boolean.parseBoolean(req.getParameter("value"));
+        String message = gameService.checkMessage(value, questId, questionId);
         Quest quest = questService.get(questId);
         String question = gameService.getQuestion(quest, questionId);
         Answers answers = answerService.getAnswer(questId, questionId);
         req.setAttribute("question", question);
         req.setAttribute("answers", answers);
+        req.setAttribute("message", message);
+
         String pathToJsp = "%s/play-game.jsp".formatted(Constant.PATH_TO_VIEW_PACKAGE);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(pathToJsp);
         requestDispatcher.forward(req, resp);
@@ -42,10 +46,11 @@ public class GameServlet extends HttpServlet {
         boolean answerValue = Boolean.parseBoolean(req.getParameter("answerValue"));
         long questId = Long.parseLong(req.getParameter("questId"));
         int questionId = Integer.parseInt(req.getParameter("questionId"));
-        int nextQuestionId = gameService.nextQuestion(answerValue, questionId);
+        int nextQuestionId = gameService.nextQuestion(answerValue, questId, questionId);
+
         String pathToJsp = nextQuestionId > 0
-                ? "/game?questId=%d&questionId=%d".formatted(questId, nextQuestionId)
-                : "/home";
+                ? "/game?questId=%d&questionId=%d&value=true".formatted(questId, nextQuestionId)
+                : "/game?questId=%d&questionId=%d&value=false".formatted(questId, questionId);
         resp.sendRedirect(pathToJsp);
     }
 }

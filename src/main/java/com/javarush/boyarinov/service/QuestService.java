@@ -45,7 +45,7 @@ public class QuestService {
     }
 
     private void doUpload() {
-        uploadQuests.testYamlMapping();
+        uploadQuests.yamlMapping();
         List<Quest> questList = uploadQuests.getQuests();
         List<Answers> answersList = uploadQuests.getAnswers();
 

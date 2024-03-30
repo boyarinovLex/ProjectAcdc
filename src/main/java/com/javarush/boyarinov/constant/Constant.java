@@ -11,6 +11,6 @@ public class Constant {
 
     public static final String PATH_TO_VIEW_PACKAGE = "WEB-INF/boyarinov/view";
 
-    public static final String PATH_TO_WEB_INF_BOYARINOV = Paths.get(URI.create(Objects.requireNonNull(Constant.class.getResource("/"))
-            .toString())).getParent().toString() + "/boyarinov/";
+    public static final String PATH_TO_WEB_INF_CONFIG = Paths.get(URI.create(Objects.requireNonNull(Constant.class.getResource("/"))
+            .toString())).getParent().toString() + "/boyarinov/config/";
 }

@@ -19,14 +19,12 @@
                 <form id="surveyForm" method="post"
                       action="game?questId=${answers.questId}&questionId=${answers.questionId}">
                     <c:forEach var="answer" items="${answers.answerMap}">
-                        <label>
-                            <input type="radio" name="answerValue" value="${answer.value}">
-                                ${answer.key}
-                        </label><br>
+                        <input id="radio" type="radio" name="answerValue" value="${answer.value}"
+                               onchange="document.getElementById('submit').disabled = !this.checked;">
+                        <label for="radio">${answer.key}</label><br>
                     </c:forEach>
-                    <input type="submit" value="Отправить">
+                    <input id="submit" disabled="disabled" name="submit" type="submit" value="Отправить">
                 </form>
-
             </div>
         </c:otherwise>
     </c:choose>

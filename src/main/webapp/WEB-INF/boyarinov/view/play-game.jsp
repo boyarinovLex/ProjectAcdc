@@ -6,9 +6,9 @@
     <c:choose>
         <c:when test="${requestScope.message.length() > 0}">
             <div class="container">
-                <p>${requestScope.message}</p>
+                <h2>${requestScope.message}</h2>
                 <form action="quests">
-                    <input type="submit" value="Начать заново"/>
+                    <button type="submit">Начать заново</button>
                 </form>
             </div>
         </c:when>
@@ -21,7 +21,8 @@
                     <c:forEach var="answer" items="${answers.answerMap}">
                         <label>
                             <input type="radio" name="answerValue" value="${answer.value}">
-                        </label> ${answer.key}<br>
+                                ${answer.key}
+                        </label><br>
                     </c:forEach>
                     <input type="submit" value="Отправить">
                 </form>
@@ -31,4 +32,4 @@
     </c:choose>
 </div>
 
-<%@include file="parts/footer.jsp"%>
+<%@include file="parts/footer.jsp" %>

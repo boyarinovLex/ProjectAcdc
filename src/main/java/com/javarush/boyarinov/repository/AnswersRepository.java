@@ -1,5 +1,6 @@
 package com.javarush.boyarinov.repository;
 
+import com.javarush.boyarinov.constant.Constant;
 import com.javarush.boyarinov.exception.AppException;
 import com.javarush.boyarinov.model.Answers;
 import lombok.extern.log4j.Log4j2;
@@ -27,9 +28,8 @@ public class AnswersRepository {
                 .filter(a -> a.getQuestionId() == questionId)
                 .findAny();
         if (answerOptional.isEmpty()) {
-            String wrongMessage = "No answer or wrong data";
-            log.error(wrongMessage);
-            throw new AppException(wrongMessage);
+            log.error(Constant.WRONG_DATA);
+            throw new AppException(Constant.WRONG_DATA);
         }
         return answerOptional.get();
     }
@@ -54,8 +54,8 @@ public class AnswersRepository {
     private List<Answers> getAnswersList(long questId) {
         List<Answers> answersList = answerMap.get(questId);
         if (Objects.isNull(answersList)) {
-            log.error("Quest with ID {} does not exist", questId);
-            throw new AppException("Quest with ID %d does not exist".formatted(questId));
+            log.error(Constant.NO_QUEST_FOR_LOGGER, questId);
+            throw new AppException(Constant.NO_QUEST.formatted(questId));
         }
         return answersList;
     }

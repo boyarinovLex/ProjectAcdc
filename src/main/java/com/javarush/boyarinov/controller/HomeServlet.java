@@ -14,7 +14,9 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestURI = req.getRequestURI().equals("/in-dev") ? "in-dev" : "home";
+        String requestURI = req.getRequestURI().equals("/in-dev")
+                ? "in-dev"
+                : "home";
         String pathToJsp = "/WEB-INF/boyarinov/view/%s.jsp".formatted(requestURI);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher(pathToJsp);
         requestDispatcher.forward(req, resp);

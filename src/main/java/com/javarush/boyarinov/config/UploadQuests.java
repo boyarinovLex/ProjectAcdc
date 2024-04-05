@@ -9,12 +9,14 @@ import com.javarush.boyarinov.model.Quest;
 import com.javarush.boyarinov.util.AnswerList;
 import com.javarush.boyarinov.util.QuestList;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 @Data
+@Log4j2()
 public class UploadQuests {
 
     private List<Quest> quests;
@@ -31,6 +33,7 @@ public class UploadQuests {
             quests = yamlMapper.readValue(pathForQuest, QuestList.class);
             answers = yamlMapper.readValue(pathForAnswers, AnswerList.class);
         } catch (NullPointerException | IOException e) {
+            log.error(e);
             throw new AppException(e);
         }
     }

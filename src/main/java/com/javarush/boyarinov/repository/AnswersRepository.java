@@ -2,10 +2,12 @@ package com.javarush.boyarinov.repository;
 
 import com.javarush.boyarinov.exception.AppException;
 import com.javarush.boyarinov.model.Answers;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Log4j2
 public class AnswersRepository {
 
     private final Map<Long, List<Answers>> answerMap = new ConcurrentHashMap<>();
@@ -25,7 +27,9 @@ public class AnswersRepository {
                 .filter(a -> a.getQuestionId() == questionId)
                 .findAny();
         if (answerOptional.isEmpty()) {
-            throw new AppException("No answer or wrong data");
+            String wrongMessage = "No answer or wrong data";
+            log.error(wrongMessage);
+            throw new AppException(wrongMessage);
         }
         return answerOptional.get();
     }
@@ -50,6 +54,7 @@ public class AnswersRepository {
     private List<Answers> getAnswersList(long questId) {
         List<Answers> answersList = answerMap.get(questId);
         if (Objects.isNull(answersList)) {
+            log.error("Quest with ID {} does not exist", questId);
             throw new AppException("Quest with ID %d does not exist".formatted(questId));
         }
         return answersList;

@@ -26,7 +26,7 @@ public class GameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long questId = Long.parseLong(req.getParameter("questId"));
-        int questionId = Integer.parseInt(req.getParameter("questionId"));
+        long questionId = Long.parseLong(req.getParameter("questionId"));
         boolean value = Boolean.parseBoolean(req.getParameter("value"));
         String message = gameService.checkMessage(value, questId, questionId);
         Quest quest = questService.get(questId);
@@ -45,8 +45,8 @@ public class GameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         boolean answerValue = Boolean.parseBoolean(req.getParameter("answerValue"));
         long questId = Long.parseLong(req.getParameter("questId"));
-        int questionId = Integer.parseInt(req.getParameter("questionId"));
-        int nextQuestionId = gameService.nextQuestion(answerValue, questId, questionId);
+        long questionId = Long.parseLong(req.getParameter("questionId"));
+        long nextQuestionId = gameService.nextQuestion(answerValue, questId, questionId);
 
         String pathToJsp = nextQuestionId > 0
                 ? "/game?questId=%d&questionId=%d&value=true".formatted(questId, nextQuestionId)

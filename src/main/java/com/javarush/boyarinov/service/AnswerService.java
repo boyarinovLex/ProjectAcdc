@@ -1,21 +1,22 @@
 package com.javarush.boyarinov.service;
 
-import com.javarush.boyarinov.config.Container;
 import com.javarush.boyarinov.model.Answers;
 import com.javarush.boyarinov.repository.AnswersRepository;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+@AllArgsConstructor
 public class AnswerService {
 
-    private final AnswersRepository answersRepository = Container.answersRepository;
+    private final AnswersRepository answersRepository;
 
     public void create(long questId, Answers answers) {
         answersRepository.create(questId, answers);
     }
 
     public Answers getAnswer(long questId, long questionId) {
-        return answersRepository.getAnswer(questId, questionId);
+        return answersRepository.getAnswers(questId, questionId);
     }
 
     public List<Answers> getAll(long questId) {

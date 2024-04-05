@@ -1,6 +1,5 @@
 package com.javarush.boyarinov.service;
 
-import com.javarush.boyarinov.config.Container;
 import com.javarush.boyarinov.config.UploadQuests;
 import com.javarush.boyarinov.model.Answers;
 import com.javarush.boyarinov.model.Quest;
@@ -14,11 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 public class QuestService {
 
-    private final Repository<Quest> questRepository = Container.questRepository;
+    private final Repository<Quest> questRepository;
 
-    private final AnswersRepository answersRepository = Container.answersRepository;
+    private final AnswersRepository answersRepository;
 
-    private final UploadQuests uploadQuests = Container.uploadQuests;
+    private final UploadQuests uploadQuests;
 
     public Collection<Quest> getAll() {
         Collection<Quest> quests = questRepository.getAll();

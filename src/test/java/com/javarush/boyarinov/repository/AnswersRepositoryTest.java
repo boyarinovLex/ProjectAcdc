@@ -1,5 +1,6 @@
 package com.javarush.boyarinov.repository;
 
+import com.javarush.boyarinov.constant.Constant;
 import com.javarush.boyarinov.exception.AppException;
 import com.javarush.boyarinov.model.Answers;
 import org.junit.jupiter.api.Assertions;
@@ -47,7 +48,7 @@ class AnswersRepositoryTest {
     void whenQuestDataIsIncorrect_throwAppExceptionWithMessage() {
         long questId = 2;
         long questionId = 0;
-        String expectedMessage = "Quest with ID %d does not exist".formatted(questId);
+        String expectedMessage = Constant.NO_QUEST.formatted(questId);
         String actualMessage = "";
 
         try {
@@ -72,7 +73,7 @@ class AnswersRepositoryTest {
     void whenQuestionDataIsIncorrect_throwAppExceptionWithMessage() {
         long questId = 1;
         long questionId = 4;
-        String expectedMessage = "No answer or wrong data";
+        String expectedMessage = Constant.WRONG_DATA;
         String actualMessage = "";
 
         try {

@@ -1,6 +1,6 @@
 package com.javarush.boyarinov.controller;
 
-import jakarta.servlet.RequestDispatcher;
+import com.javarush.boyarinov.constant.Constant;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,17 +9,16 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(value = {"/", "/home", "/in-dev"})
+@WebServlet({Constant.GO_EMPTY_SLASH, Constant.GO_HOME, Constant.GO_IN_DEV})
 public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String requestURI = req.getRequestURI().equals("/in-dev")
-                ? "in-dev"
-                : "home";
-        String pathToJsp = "/WEB-INF/boyarinov/view/%s.jsp".formatted(requestURI);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(pathToJsp);
-        requestDispatcher.forward(req, resp);
+        String requestURI = req.getRequestURI().equals(Constant.GO_IN_DEV)
+                ? Constant.GO_IN_DEV
+                : Constant.GO_HOME;
+        String pathToJsp = Constant.PATH_TO_VIEW_PACKAGE.formatted(requestURI.substring(1));
+        req.getRequestDispatcher(pathToJsp).forward(req, resp);
 
     }
 

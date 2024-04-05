@@ -1,5 +1,6 @@
 package com.javarush.boyarinov.service;
 
+import com.javarush.boyarinov.constant.Constant;
 import com.javarush.boyarinov.model.Answers;
 import com.javarush.boyarinov.model.Quest;
 import lombok.AllArgsConstructor;
@@ -13,7 +14,24 @@ public class GameService {
         return quest.getQuestionsList().get((int) questionId);
     }
 
-    public long nextQuestion(boolean answerValue, long questId, long questionId) {
+    public String nextQuestion(boolean answerValue, long questId, long questionId) {
+        long nextQuestionId = checkAnswer(answerValue, questId, questionId);
+        return nextQuestionId > 0
+                ? Constant.SEND_PATH_TO_NEXT_QUESTION.formatted(questId, nextQuestionId, answerValue)
+                : Constant.SEND_PATH_TO_NEXT_QUESTION.formatted(questId, questionId, answerValue);
+    }
+
+    public String checkResultMessage(boolean answerValue, long questId, long questionId) {
+        Answers answer = answerService.getAnswer(questId, questionId);
+        String winningMessage = answer.getWinningMessage();
+        String lossMessage = answer.getLossMessage();
+
+        return answerValue
+                ? winningMessage
+                : lossMessage;
+    }
+
+    private long checkAnswer(boolean answerValue, long questId, long questionId) {
         Answers answer = answerService.getAnswer(questId, questionId);
         String winningMassage = answer.getWinningMessage();
         if (answerValue && winningMassage.isBlank()) {
@@ -23,15 +41,5 @@ public class GameService {
                     ? questionId
                     : -1L;
         }
-    }
-
-    public String checkMessage(boolean value, long questId, long questionId) {
-        Answers answer = answerService.getAnswer(questId, questionId);
-        String winningMessage = answer.getWinningMessage();
-        String lossMessage = answer.getLossMessage();
-
-        return value
-                ? winningMessage
-                : lossMessage;
     }
 }

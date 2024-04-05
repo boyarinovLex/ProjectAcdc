@@ -5,7 +5,7 @@
     <c:forEach var="quest" items="${requestScope.quests}">
         <div class="container">
             <h2 class="container">${quest.name}</h2>
-            <a href="game?questId=${quest.id}&questionId=0&value=true">
+            <a href="game?questId=${quest.id}&questionId=0&answer_value=true">
                 <button>Играть</button>
             </a>
         </div>

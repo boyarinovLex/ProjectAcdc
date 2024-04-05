@@ -1,5 +1,6 @@
 package com.javarush.boyarinov.service;
 
+import com.javarush.boyarinov.constant.Constant;
 import com.javarush.boyarinov.model.Answers;
 import com.javarush.boyarinov.model.Quest;
 import org.junit.jupiter.api.Assertions;
@@ -51,10 +52,10 @@ class GameServiceTest {
                 .build();
         //when
         Mockito.when(answerService.getAnswer(questId, questionId)).thenReturn(answers);
-        long nextQuestion = gameService.nextQuestion(answerValue, questId, questionId);
+        String nextQuestion = gameService.nextQuestion(answerValue, questId, questionId);
         //then
-        long expectedQuestionId = 1;
-        Assertions.assertEquals(expectedQuestionId, nextQuestion);
+        String expectedNextQuestion = Constant.SEND_PATH_TO_NEXT_QUESTION.formatted(questId, ++questionId, answerValue);
+        Assertions.assertEquals(expectedNextQuestion, nextQuestion);
 
     }
 
@@ -71,9 +72,10 @@ class GameServiceTest {
                 .build();
         //when
         Mockito.when(answerService.getAnswer(questId, questionId)).thenReturn(answers);
-        long nextQuestion = gameService.nextQuestion(answerValue, questId, questionId);
+        String nextQuestion = gameService.nextQuestion(answerValue, questId, questionId);
         //then
-        Assertions.assertEquals(questionId, nextQuestion);
+        String expectedNextQuestion = Constant.SEND_PATH_TO_NEXT_QUESTION.formatted(questId, questionId, answerValue);
+        Assertions.assertEquals(expectedNextQuestion, nextQuestion);
     }
 
     @Test
@@ -89,10 +91,10 @@ class GameServiceTest {
                 .build();
         //when
         Mockito.when(answerService.getAnswer(questId, questionId)).thenReturn(answers);
-        long nextQuestion = gameService.nextQuestion(answerValue, questId, questionId);
+        String nextQuestion = gameService.nextQuestion(answerValue, questId, questionId);
         //then
-        long expectedQuestionId = -1;
-        Assertions.assertEquals(expectedQuestionId, nextQuestion);
+        String expectedNextQuestion = Constant.SEND_PATH_TO_NEXT_QUESTION.formatted(questId, questionId, answerValue);
+        Assertions.assertEquals(expectedNextQuestion, nextQuestion);
     }
 
     @Test
@@ -108,7 +110,7 @@ class GameServiceTest {
                 .build();
         //when
         Mockito.when(answerService.getAnswer(questId, questionId)).thenReturn(answers);
-        String message = gameService.checkMessage(answerValue, questId, questionId);
+        String message = gameService.checkResultMessage(answerValue, questId, questionId);
         //then
         String winningMessage = answers.getWinningMessage();
         Assertions.assertEquals(winningMessage, message);
@@ -128,7 +130,7 @@ class GameServiceTest {
                 .build();
         //when
         Mockito.when(answerService.getAnswer(questId, questionId)).thenReturn(answers);
-        String message = gameService.checkMessage(answerValue, questId, questionId);
+        String message = gameService.checkResultMessage(answerValue, questId, questionId);
         //then
         String lossMessage = answers.getLossMessage();
         Assertions.assertEquals(lossMessage, message);

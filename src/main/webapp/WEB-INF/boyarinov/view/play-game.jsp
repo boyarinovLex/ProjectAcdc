@@ -4,9 +4,9 @@
 
 <div>
     <c:choose>
-        <c:when test="${requestScope.message.length() > 0}">
+        <c:when test="${requestScope.resultMessage.length() > 0}">
             <div class="container">
-                <h2>${requestScope.message}</h2>
+                <h2>${requestScope.resultMessage}</h2>
                 <form action="quests">
                     <button type="submit">Начать заново</button>
                 </form>

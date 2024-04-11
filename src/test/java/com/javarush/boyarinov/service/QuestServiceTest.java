@@ -1,6 +1,6 @@
 package com.javarush.boyarinov.service;
 
-import com.javarush.boyarinov.config.UploadQuests;
+import com.javarush.boyarinov.config.QuestsLoader;
 import com.javarush.boyarinov.model.Quest;
 import com.javarush.boyarinov.repository.AnswersRepository;
 import com.javarush.boyarinov.repository.QuestRepository;
@@ -19,9 +19,9 @@ class QuestServiceTest {
 
     private final AnswersRepository answersRepository = Mockito.mock(AnswersRepository.class);
 
-    private final UploadQuests uploadQuests = Mockito.mock(UploadQuests.class);
+    private final QuestsLoader questsLoader = Mockito.mock(QuestsLoader.class);
 
-    private final QuestService questService = new QuestService(questRepository, answersRepository, uploadQuests);
+    private final QuestService questService = new QuestService(questRepository, answersRepository, questsLoader);
 
     private Quest quest;
 
@@ -49,7 +49,7 @@ class QuestServiceTest {
         //when
         questService.getAll();
         //then
-        Mockito.verify(uploadQuests).yamlMapping();
+        Mockito.verify(questsLoader).yamlMapping();
     }
 
     @Test

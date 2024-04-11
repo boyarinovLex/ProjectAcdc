@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Log4j2
-public class UploadQuests {
+public class QuestsLoader {
 
     private List<Quest> quests;
 
@@ -28,9 +28,9 @@ public class UploadQuests {
     public void yamlMapping() {
         ObjectMapper yamlMapper = new YAMLMapper();
         try {
-            String pathToWebInfBoyarinov = Constant.PATH_TO_WEB_INF_CONFIG;
-            File pathForQuest = new File(pathToWebInfBoyarinov + Constant.FILE_QUEST_LIST_YAML);
-            File pathForAnswers = new File(pathToWebInfBoyarinov + Constant.FILE_ANSWERS_LIST_YAML);
+            String pathToWebInfConfig = Constant.PATH_TO_WEB_INF_CONFIG;
+            File pathForQuest = new File(pathToWebInfConfig + Constant.FILE_QUEST_LIST_YAML);
+            File pathForAnswers = new File(pathToWebInfConfig + Constant.FILE_ANSWERS_LIST_YAML);
 
             quests = yamlMapper.readValue(pathForQuest, QuestList.class);
             answers = yamlMapper.readValue(pathForAnswers, AnswerList.class);

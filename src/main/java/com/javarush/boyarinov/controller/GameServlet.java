@@ -18,9 +18,9 @@ import java.io.IOException;
 @WebServlet(Constant.GO_GAME)
 public class GameServlet extends HttpServlet {
 
-    private final QuestService questService = Container.questService;
-    private final GameService gameService = Container.gameService;
-    private final AnswerService answerService = Container.answerService;
+    private final QuestService questService = Container.QUEST_SERVICE;
+    private final GameService gameService = Container.GAME_SERVICE;
+    private final AnswerService answerService = Container.ANSWER_SERVICE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class GameServlet extends HttpServlet {
         req.setAttribute(Constant.ANSWERS, answers);
         req.setAttribute(Constant.RESULT_MESSAGE, resultMessage);
 
-        String pathToJsp = Constant.PATH_TO_VIEW_PACKAGE.formatted(Constant.GO_PLAY_GAME);
+        String pathToJsp = Constant.PATH_TO_JSP.formatted(Constant.GO_PLAY_GAME);
         req.getRequestDispatcher(pathToJsp).forward(req, resp);
     }
 

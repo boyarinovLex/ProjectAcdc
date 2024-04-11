@@ -17,7 +17,7 @@ public class HomeServlet extends HttpServlet {
         String requestURI = req.getRequestURI().equals(Constant.GO_IN_DEV)
                 ? Constant.GO_IN_DEV
                 : Constant.GO_HOME;
-        String pathToJsp = Constant.PATH_TO_VIEW_PACKAGE.formatted(requestURI.substring(1));
+        String pathToJsp = Constant.PATH_TO_JSP.formatted(requestURI.substring(1));
         req.getRequestDispatcher(pathToJsp).forward(req, resp);
 
     }

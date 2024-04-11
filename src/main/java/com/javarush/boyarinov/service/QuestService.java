@@ -1,6 +1,6 @@
 package com.javarush.boyarinov.service;
 
-import com.javarush.boyarinov.config.UploadQuests;
+import com.javarush.boyarinov.config.QuestsLoader;
 import com.javarush.boyarinov.model.Answers;
 import com.javarush.boyarinov.model.Quest;
 import com.javarush.boyarinov.repository.AnswersRepository;
@@ -17,7 +17,7 @@ public class QuestService {
 
     private final AnswersRepository answersRepository;
 
-    private final UploadQuests uploadQuests;
+    private final QuestsLoader questsLoader;
 
     public Collection<Quest> getAll() {
         Collection<Quest> quests = questRepository.getAll();
@@ -44,9 +44,9 @@ public class QuestService {
     }
 
     private void doUpload() {
-        uploadQuests.yamlMapping();
-        List<Quest> questList = uploadQuests.getQuests();
-        List<Answers> answersList = uploadQuests.getAnswers();
+        questsLoader.yamlMapping();
+        List<Quest> questList = questsLoader.getQuests();
+        List<Answers> answersList = questsLoader.getAnswers();
 
         questList.forEach(this::create);
         answersList.forEach(answers -> {

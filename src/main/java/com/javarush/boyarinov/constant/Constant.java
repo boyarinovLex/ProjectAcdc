@@ -9,8 +9,8 @@ public final class Constant {
     private Constant() {
     }
 
-    public static final String PATH_TO_VIEW_PACKAGE = "WEB-INF/boyarinov/view/%s.jsp";
-    public static final String SEND_PATH_TO_NEXT_QUESTION = "/game?questId=%d&questionId=%d&answer_value=%b";
+    public static final String PATH_TO_JSP = "WEB-INF/boyarinov/view/%s.jsp";
+    public static final String SEND_PATH_TO_NEXT_QUESTION = "game?questId=%d&questionId=%d&answer_value=%b";
     public static final String PATH_TO_WEB_INF_CONFIG = Paths.get(URI.create(Objects.requireNonNull(Constant.class.getResource("/"))
             .toString())).getParent().toString() + "/boyarinov/config/";
     public static final String FILE_QUEST_LIST_YAML = "questList.yml";

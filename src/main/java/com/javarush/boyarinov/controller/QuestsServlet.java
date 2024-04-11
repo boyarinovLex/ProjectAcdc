@@ -16,7 +16,7 @@ import java.util.Collection;
 @WebServlet(Constant.GO_QUESTS)
 public class QuestsServlet extends HttpServlet {
 
-    private final QuestService questService = Container.questService;
+    private final QuestService questService = Container.QUEST_SERVICE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +24,7 @@ public class QuestsServlet extends HttpServlet {
 
         req.setAttribute(Constant.QUESTS, quests);
 
-        String pathToJsp = Constant.PATH_TO_VIEW_PACKAGE.formatted(Constant.GO_QUEST_LIST);
+        String pathToJsp = Constant.PATH_TO_JSP.formatted(Constant.GO_QUEST_LIST);
         req.getRequestDispatcher(pathToJsp).forward(req, resp);
     }
 
